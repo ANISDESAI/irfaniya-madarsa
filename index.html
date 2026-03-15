@@ -3,165 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Irfaniya Masjid & Madarsa</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Nastaliq+Urdu:wght@600&display=swap" rel="stylesheet">
 
 <style>
-
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-font-family:'Poppins',sans-serif;
-background-image:url("background.jpeg");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-background-attachment:fixed;
-min-height:100vh;
-color:#2c3e50;
+  font-family:'Poppins',sans-serif;
+  
+  /* Background Image */
+  background-image: url("background.jpeg");  /* your image file */
+  background-size: cover;                    /* cover entire screen */
+  background-position: center;               /* centered */
+  background-repeat: no-repeat;             /* no tiling */
+  background-attachment: fixed;             /* fixed during scroll */
+  
+  min-height: 100vh;                        /* full height */
+  color:#2c3e50;                            /* default text color */
 }
 
-/* HEADER */
-
-header{
-text-align:center;
-padding:40px 15px 20px;
-color:#fff;
-text-shadow:0 2px 5px rgba(0,0,0,0.7);
+.lang-buttons{
+  display:flex;
+  gap:15px;
+}
+.lang-buttons button{
+  padding:6px 15px;
+  border:none;
+  border-radius:50px;
+  font-weight:600;
+  font-size:14px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  color:#fff;
+}
+#btnEn{background:linear-gradient(135deg,#2196F3,#64B5F6);}
+#btnHi{background:linear-gradient(135deg,#FF5722,#FF8A65);}
+.lang-buttons button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(0,0,0,0.3);
+}
+.lang-buttons button.active{
+  box-shadow:0 0 0 3px rgba(0,0,0,0.2);
+  transform:translateY(0);
 }
 
-header h1{font-size:34px;}
-
-.urdu{
-font-family:'Noto Nastaliq Urdu',serif;
-font-size:24px;
+header{text-align:center;padding:40px 15px 20px;}
+header h1{font-size:34px;color:#006400;}
+.urdu{font-family:'Noto Nastaliq Urdu',serif;font-size:24px;color:#004d00;}
+.header-subtitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:5px;
 }
-
-/* CONTAINER */
 
 .container{max-width:1100px;margin:auto;padding:20px;}
-
-/* CARD */
-
 .card{
-background:rgba(255,255,255,0.6);
-backdrop-filter:blur(12px);
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-margin-bottom:25px;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(12px);
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  margin-bottom:25px;
 }
-
-/* SUMMARY */
 
 .totals-container{
-display:flex;
-justify-content:space-between;
-gap:20px;
-flex-wrap:wrap;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:10px;
+  flex-wrap:wrap;
 }
-
 .total-box{
-flex:1;
-padding:25px 20px;
-border-radius:15px;
-text-align:center;
-font-weight:600;
-color:#fff;
-font-size:18px;
+  flex:1;
+  padding:25px 20px;
+  border-radius:15px;
+  text-align:center;
+  font-weight:600;
+  color:#fff;
+  font-size:18px;
 }
-
 .total-box h3{margin-bottom:12px;font-size:16px;}
 
 .total-donation{background:linear-gradient(135deg,#00c853,#66ff66);}
 .total-used{background:linear-gradient(135deg,#d50000,#ff6659);}
 .total-balance{background:linear-gradient(135deg,#ffb300,#ffe066);color:#004d00;}
 
-/* BUTTON GROUP (UNCHANGED SIZE) */
-
 .button-group{
-display:flex;
-gap:15px;
-margin-top:20px;
+  display:flex;
+  gap:15px;
+  margin-top:20px;
 }
-
 .button-group button{
-flex:1;
-padding:12px 18px;
-border:none;
-border-radius:35px;
-font-size:15px;
-font-weight:600;
-background:linear-gradient(135deg,#00c853,#64dd17);
-color:#fff;
-cursor:pointer;
+  flex:1;
+  padding:12px 18px;
+  border:none;
+  border-radius:35px;
+  font-size:15px;
+  font-weight:600;
+  background:linear-gradient(135deg,#00c853,#64dd17);
+  color:#fff;
+  cursor:pointer;
 }
-
-/* TABLE */
 
 .table-wrapper{overflow-x:auto;margin-top:20px;}
-
 table{width:100%;border-collapse:collapse;}
-
 th,td{
-padding:10px;
-text-align:center;
-border-bottom:1px solid rgba(0,0,0,0.1);
-font-size:14px;
+  padding:10px;
+  text-align:center;
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  font-size:14px;
 }
-
 th{background:rgba(0,200,83,0.3);color:#004d00;}
 
+.prayer-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px 40px;
+  margin-top:15px;
+}
+.prayer-box{
+  background:rgba(255,255,255,0.5);
+  padding:12px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:600;
+  color:#006400;
+  text-align:center;
+}
+.prayer-time{
+  display:block;
+  margin-top:4px;
+  font-weight:500;
+}
 </style>
 </head>
-
 <body>
 
 <header>
 <h1>🕌 Irfaniya Masjid & Madarsa</h1>
 <div class="urdu">مدرسہ عرفانیہ مسجد</div>
+<div class="header-subtitle">
+  <div class="subtitle" id="subtitle">Donation & Funds Management</div>
+  <div class="lang-buttons">
+    <button id="btnEn" class="active" onclick="setLanguage('en')">English</button>
+    <button id="btnHi" onclick="setLanguage('hi')">हिन्दी</button>
+  </div>
+</div>
 </header>
 
 <div class="container">
 
-<!-- SUMMARY -->
+<div class="card">
+<h2 id="namazTitle">Namaz Timings (Mumbai)</h2>
+<div class="prayer-grid">
+  <div class="prayer-box" id="prFajr"><span class="prayer-label">Fajr</span> <span class="prayer-time" id="fajrClock">Loading...</span></div>
+  <div class="prayer-box" id="prMaghrib"><span class="prayer-label">Maghrib</span> <span class="prayer-time" id="maghribClock">Loading...</span></div>
+  <div class="prayer-box" id="prZohar"><span class="prayer-label">Zohar</span> <span class="prayer-time" id="dhuhrClock">Loading...</span></div>
+  <div class="prayer-box" id="prIsha"><span class="prayer-label">Isha</span> <span class="prayer-time" id="ishaClock">Loading...</span></div>
+  <div class="prayer-box" id="prAsar"><span class="prayer-label">Asar</span> <span class="prayer-time" id="asrClock">Loading...</span></div>
+  <div class="prayer-box" id="prJuma"><span class="prayer-label">Juma</span> <span class="prayer-time">01:30 PM</span></div>
+</div>
+</div>
 
 <div class="card">
-
-<h2>Summary</h2>
-
+<h2 id="summaryTitle">Summary</h2>
 <div class="totals-container">
-
-<div class="total-box total-donation">
-<h3>Total Donation</h3>
-<div id="donationCounter">₹ 0</div>
+  <div class="total-box total-donation">
+    <h3 id="totalDonationLabel">Total Donation</h3>
+    <div id="donationCounter">₹ 0</div>
+  </div>
+  <div class="total-box total-used">
+    <h3 id="donationUsedLabel">Donation Used</h3>
+    <div id="donationUsed">₹ 0</div>
+  </div>
+  <div class="total-box total-balance">
+    <h3 id="balanceLabel">Balance</h3>
+    <div id="balance">₹ 0</div>
+  </div>
 </div>
-
-<div class="total-box total-used">
-<h3>Donation Used</h3>
-<div id="donationUsed">₹ 0</div>
 </div>
-
-<div class="total-box total-balance">
-<h3>Balance</h3>
-<div id="balance">₹ 0</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- MANAGE -->
 
 <div class="card">
-
-<h2>Manage Donations & Funds</h2>
-
+<h2 id="manageTitle">Manage Donations & Funds</h2>
 <div class="button-group">
-<button onclick="showSection('donation')">Donation List</button>
-<button onclick="showSection('kharcha')">Fund Used List</button>
+<button id="donationBtn" onclick="showSection('donation')">Donation List</button>
+<button id="kharchaBtn" onclick="showSection('kharcha')">Fund Used List</button>
 </div>
 
 <div id="donation" style="display:none;" class="table-wrapper">
@@ -171,121 +201,133 @@ th{background:rgba(0,200,83,0.3);color:#004d00;}
 <div id="kharcha" style="display:none;" class="table-wrapper">
 <table id="kharchaTable"></table>
 </div>
-
-</div>
-
 </div>
 
 <script>
+// LANGUAGE SWITCH
+function setLanguage(lang){
+  document.querySelectorAll('.lang-buttons button').forEach(b=>b.classList.remove('active'));
+  if(lang==='en') document.getElementById('btnEn').classList.add('active');
+  else document.getElementById('btnHi').classList.add('active');
 
-/* SHOW SECTION */
+  if(lang==="hi"){
+    subtitle.innerText="चंदा का हिसाब";
+    namazTitle.innerText="नमाज़ का वक्त";
+    summaryTitle.innerText="हिसाब";
+    manageTitle.innerText="चंदा का हिसाब";
+    totalDonationLabel.innerText="कुल चंदा";
+    donationUsedLabel.innerText="खर्च किए गए पैसे";
+    balanceLabel.innerText="बचा हुआ पैसा";
+    donationBtn.innerText="चंदा लिस्ट";
+    kharchaBtn.innerText="खर्च किए गए पैसे लिस्ट";
+    document.querySelector("#prFajr .prayer-label").innerText="फ़ज्र";
+    document.querySelector("#prZohar .prayer-label").innerText="ज़ुहर";
+    document.querySelector("#prAsar .prayer-label").innerText="असर";
+    document.querySelector("#prMaghrib .prayer-label").innerText="मगरिब";
+    document.querySelector("#prIsha .prayer-label").innerText="इशा";
+    document.querySelector("#prJuma .prayer-label").innerText="जुमा";
+  } else {
+    subtitle.innerText="Donation & Funds Management";
+    namazTitle.innerText="Namaz Timings (Mumbai)";
+    summaryTitle.innerText="Summary";
+    manageTitle.innerText="Manage Donations & Funds";
+    totalDonationLabel.innerText="Total Donation";
+    donationUsedLabel.innerText="Donation Used";
+    balanceLabel.innerText="Balance";
+    donationBtn.innerText="Donation List";
+    kharchaBtn.innerText="Fund Used List";
+    document.querySelector("#prFajr .prayer-label").innerText="Fajr";
+    document.querySelector("#prZohar .prayer-label").innerText="Zohar";
+    document.querySelector("#prAsar .prayer-label").innerText="Asar";
+    document.querySelector("#prMaghrib .prayer-label").innerText="Maghrib";
+    document.querySelector("#prIsha .prayer-label").innerText="Isha";
+    document.querySelector("#prJuma .prayer-label").innerText="Juma";
+  }
+}
 
+// Show section
 function showSection(id){
-
-document.getElementById('donation').style.display='none';
-document.getElementById('kharcha').style.display='none';
-
-document.getElementById(id).style.display='block';
-
+  document.getElementById('donation').style.display='none';
+  document.getElementById('kharcha').style.display='none';
+  const section=document.getElementById(id);
+  section.style.display='block';
+  section.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-/* INDIAN DATE FORMAT */
-
+// Format DD-MM-YY
 function formatIndianDate(dateString){
-
-if(!dateString) return "-";
-
-const d=new Date(dateString);
-
-const day=("0"+d.getDate()).slice(-2);
-const month=("0"+(d.getMonth()+1)).slice(-2);
-const year=d.getFullYear();
-
-return day+"-"+month+"-"+year;
-
+  if(!dateString) return "-";
+  const d=new Date(dateString);
+  const indiaTime=new Date(d.toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  const day=("0"+indiaTime.getDate()).slice(-2);
+  const month=("0"+(indiaTime.getMonth()+1)).slice(-2);
+  const year=indiaTime.getFullYear().toString().slice(-2);
+  return `${day}-${month}-${year}`;
 }
 
-/* GOOGLE SHEET */
+// Prayer API
+async function fetchPrayerTimesMumbai(){
+  try{
+    const response=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Mumbai&country=India&method=2");
+    const data=await response.json();
+    const t=data.data.timings;
+    document.getElementById("fajrClock").innerText=t.Fajr;
+    document.getElementById("dhuhrClock").innerText=t.Dhuhr;
+    document.getElementById("asrClock").innerText=t.Asr;
+    document.getElementById("maghribClock").innerText=t.Maghrib;
+    document.getElementById("ishaClock").innerText=t.Isha;
+  }catch(e){console.error(e);}
+}
+fetchPrayerTimesMumbai();
 
-const API_URL="https://script.google.com/macros/s/AKfycbx4lP00Q3kbRpq3ajbBxPDpgSp7QHecEKcoPNtH4mhqalnsDbAQlGB2pLSKtXIOya1i/exec";
-
-let donationList=[];
-let kharchaList=[];
-
+// Google Sheet API
+const API_URL="https://script.google.com/macros/s/AKfycbx4lP00Q3kbRpq3ajbBxPDpgSp7QHecEKcoPNtH4mhqalnsDbAQlGB2pLSKtXIOya1i/exec"; 
+let donationList=[],kharchaList=[];
 async function fetchData(){
-
-try{
-
-const res=await fetch(API_URL);
-const data=await res.json();
-
-donationList=data.donations||[];
-kharchaList=data.kharcha||[];
-
-renderTables();
-calculateTotals();
-
-}catch(e){
-
-console.log("Data load error",e);
-
+  try{
+    const res=await fetch(API_URL);
+    const data=await res.json();
+    donationList=data.donations||[];
+    kharchaList=data.kharcha||[];
+    renderTables();
+    calculateTotals();
+  }catch(e){alert("Failed to load Google Sheet data.");}
 }
-
-}
-
-/* TABLE RENDER */
 
 function renderTables(){
-
-donationTable.innerHTML=`<tr>
-<th>#</th><th>Name</th><th>Amount</th><th>Method</th><th>Date</th>
-</tr>`;
-
-kharchaTable.innerHTML=`<tr>
-<th>#</th><th>Purpose</th><th>Amount</th><th>Date</th><th>Paid From</th>
-</tr>`;
-
-donationList.forEach((d,i)=>{
-
-let r=donationTable.insertRow();
-
-r.insertCell(0).innerText=i+1;
-r.insertCell(1).innerText=d.Name||"Anonymous";
-r.insertCell(2).innerText="₹ "+(d.Amount||0);
-r.insertCell(3).innerText=d.Method||"-";
-r.insertCell(4).innerText=formatIndianDate(d.Date);
-
-});
-
-kharchaList.forEach((k,i)=>{
-
-let r=kharchaTable.insertRow();
-
-r.insertCell(0).innerText=i+1;
-r.insertCell(1).innerText=k.Purpose||"-";
-r.insertCell(2).innerText="₹ "+(k.Amount||0);
-r.insertCell(3).innerText=formatIndianDate(k.Date);
-r.insertCell(4).innerText=k.PaidFrom||"-";
-
-});
-
+  donationTable.innerHTML=`<tr>
+    <th>#</th><th>Name</th><th>Amount</th><th>Method</th><th>Date</th>
+  </tr>`;
+  kharchaTable.innerHTML=`<tr>
+    <th>#</th><th>Purpose</th><th>Amount</th><th>Date</th><th>Paid From</th>
+  </tr>`;
+  donationList.forEach((d,i)=>{
+    let r=donationTable.insertRow();
+    r.insertCell(0).innerText=i+1;
+    r.insertCell(1).innerText=d.Name||"Anonymous";
+    r.insertCell(2).innerText=d.Amount||0;
+    r.insertCell(3).innerText=d.Method||"-";
+    r.insertCell(4).innerText=formatIndianDate(d.Date);
+  });
+  kharchaList.forEach((k,i)=>{
+    let r=kharchaTable.insertRow();
+    r.insertCell(0).innerText=i+1;
+    r.insertCell(1).innerText=k.Purpose||"-";
+    r.insertCell(2).innerText=k.Amount||0;
+    r.insertCell(3).innerText=formatIndianDate(k.Date);
+    r.insertCell(4).innerText=k.PaidFrom||"-";
+  });
 }
 
-/* TOTALS */
-
 function calculateTotals(){
-
-let totalDonation=donationList.reduce((s,d)=>s+Number(d.Amount||0),0);
-let totalUsed=kharchaList.reduce((s,k)=>s+Number(k.Amount||0),0);
-
-document.getElementById("donationCounter").innerText="₹ "+totalDonation;
-document.getElementById("donationUsed").innerText="₹ "+totalUsed;
-document.getElementById("balance").innerText="₹ "+(totalDonation-totalUsed);
-
+  let totalDonation=donationList.reduce((s,d)=>s+parseInt(d.Amount||0),0);
+  let totalKharcha=kharchaList.reduce((s,k)=>s+parseInt(k.Amount||0),0);
+  donationCounter.innerText="₹ "+totalDonation;
+  donationUsed.innerText="₹ "+totalKharcha;
+  balance.innerText="₹ "+(totalDonation-totalKharcha);
 }
 
 fetchData();
-
 </script>
 
 </body>
