@@ -23,71 +23,137 @@ font-family:'Poppins',sans-serif;
 color:#2c3e50;
 
 background-image:url("background.jpeg");
-background-size:contain;
-background-position:top center;
+background-size:cover;
+background-position:center top;
 background-repeat:no-repeat;
-background-color:#e8f5e9;
+background-attachment:fixed;
 
 min-height:100vh;
 
 }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-}
+/* HEADER */
 
 header{
 text-align:center;
-padding:40px 15px 20px;
+padding:20px 10px;
 }
 
 header h1{
-font-size:34px;
+font-size:28px;
 color:#006400;
 }
 
 .urdu{
 font-family:'Noto Nastaliq Urdu',serif;
-font-size:24px;
+font-size:20px;
 color:#004d00;
 }
 
+/* MAIN CONTAINER */
+
+.container{
+max-width:900px;
+margin:auto;
+padding:10px;
+}
+
+/* CARDS */
+
 .card{
 
-background:rgba(255,255,255,0.92);
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-margin-bottom:25px;
+background:rgba(255,255,255,0.85);
+padding:15px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+margin-bottom:15px;
 
 }
+
+/* NAMAZ GRID SMALLER */
 
 .prayer-grid{
 
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
+grid-template-columns:1fr 1fr 1fr;
+gap:8px;
+margin-top:10px;
 
 }
 
 .prayer-box{
 
-background:#fff;
-padding:12px;
-border-radius:10px;
-text-align:center;
+background:#ffffffcc;
+padding:6px;
+border-radius:8px;
+font-size:12px;
 font-weight:600;
 color:#006400;
+text-align:center;
 
 }
 
 .prayer-time{
 
 display:block;
-margin-top:5px;
+font-size:12px;
+margin-top:2px;
 
+}
+
+/* SUMMARY */
+
+.totals-container{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.total-box{
+
+flex:1;
+padding:12px;
+border-radius:10px;
+text-align:center;
+color:#fff;
+font-size:14px;
+
+}
+
+.total-donation{background:#2ecc71;}
+.total-used{background:#e74c3c;}
+.total-balance{background:#f1c40f;color:#000;}
+
+/* BUTTONS */
+
+.button-group{
+
+display:flex;
+gap:10px;
+margin-top:10px;
+
+}
+
+.button-group button{
+
+flex:1;
+padding:10px;
+border:none;
+border-radius:25px;
+background:#27ae60;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+
+}
+
+/* TABLE */
+
+.table-wrapper{
+overflow-x:auto;
+margin-top:10px;
 }
 
 table{
@@ -96,11 +162,10 @@ border-collapse:collapse;
 }
 
 th,td{
-
-padding:10px;
+padding:8px;
 text-align:center;
 border-bottom:1px solid #ddd;
-
+font-size:13px;
 }
 
 th{
@@ -116,7 +181,6 @@ background:#dcedc8;
 <header>
 
 <h1>🕌 Irfaniya Masjid & Madarsa</h1>
-
 <div class="urdu">مدرسہ عرفانیہ مسجد</div>
 
 </header>
@@ -125,33 +189,33 @@ background:#dcedc8;
 
 <div class="card">
 
-<h2>Namaz Timings (Mumbai)</h2>
+<h3>Namaz Timings (Mumbai)</h3>
 
 <div class="prayer-grid">
 
 <div class="prayer-box">
 Fajr
-<span class="prayer-time" id="fajrClock">Loading...</span>
+<span class="prayer-time" id="fajrClock">--</span>
 </div>
 
 <div class="prayer-box">
 Zohar
-<span class="prayer-time" id="dhuhrClock">Loading...</span>
+<span class="prayer-time" id="dhuhrClock">--</span>
 </div>
 
 <div class="prayer-box">
 Asar
-<span class="prayer-time" id="asrClock">Loading...</span>
+<span class="prayer-time" id="asrClock">--</span>
 </div>
 
 <div class="prayer-box">
 Maghrib
-<span class="prayer-time" id="maghribClock">Loading...</span>
+<span class="prayer-time" id="maghribClock">--</span>
 </div>
 
 <div class="prayer-box">
 Isha
-<span class="prayer-time" id="ishaClock">Loading...</span>
+<span class="prayer-time" id="ishaClock">--</span>
 </div>
 
 <div class="prayer-box">
@@ -165,22 +229,51 @@ Juma
 
 <div class="card">
 
-<h2>Donation List</h2>
+<h3>Summary</h3>
 
-<div style="overflow-x:auto">
+<div class="totals-container">
 
-<table id="donationTable">
+<div class="total-box total-donation">
+Total Donation
+<div id="donationCounter">₹0</div>
+</div>
 
-<tr>
-<th>#</th>
-<th>Name</th>
-<th>Amount</th>
-<th>Method</th>
-<th>Date</th>
-</tr>
+<div class="total-box total-used">
+Used
+<div id="donationUsed">₹0</div>
+</div>
 
-</table>
+<div class="total-box total-balance">
+Balance
+<div id="balance">₹0</div>
+</div>
 
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Manage Funds</h3>
+
+<div class="button-group">
+
+<button onclick="showSection('donation')">
+Donation List
+</button>
+
+<button onclick="showSection('kharcha')">
+Fund Used
+</button>
+
+</div>
+
+<div id="donation" class="table-wrapper" style="display:none;">
+<table id="donationTable"></table>
+</div>
+
+<div id="kharcha" class="table-wrapper" style="display:none;">
+<table id="kharchaTable"></table>
 </div>
 
 </div>
@@ -188,6 +281,19 @@ Juma
 </div>
 
 <script>
+
+/* SHOW TABLE */
+
+function showSection(id){
+
+document.getElementById('donation').style.display='none';
+document.getElementById('kharcha').style.display='none';
+
+document.getElementById(id).style.display='block';
+
+}
+
+/* PRAYER TIMES */
 
 async function fetchPrayerTimes(){
 
@@ -205,15 +311,13 @@ document.getElementById("asrClock").innerText=t.Asr;
 document.getElementById("maghribClock").innerText=t.Maghrib;
 document.getElementById("ishaClock").innerText=t.Isha;
 
-}catch(e){
-
-console.log(e);
-
-}
+}catch(e){console.log(e)}
 
 }
 
 fetchPrayerTimes();
+
+/* GOOGLE SHEET */
 
 const API_URL="https://script.google.com/macros/s/AKfycbx4lP00Q3kbRpq3ajbBxPDpgSp7QHecEKcoPNtH4mhqalnsDbAQlGB2pLSKtXIOya1i/exec";
 
@@ -225,13 +329,16 @@ const res=await fetch(API_URL);
 
 const data=await res.json();
 
-const list=data.donations||[];
+const donations=data.donations||[];
+const kharcha=data.kharcha||[];
 
-const table=document.getElementById("donationTable");
+const dTable=document.getElementById("donationTable");
 
-list.forEach((d,i)=>{
+dTable.innerHTML="<tr><th>#</th><th>Name</th><th>Amount</th><th>Method</th><th>Date</th></tr>";
 
-let r=table.insertRow();
+donations.forEach((d,i)=>{
+
+let r=dTable.insertRow();
 
 r.insertCell(0).innerText=i+1;
 r.insertCell(1).innerText=d.Name||"Anonymous";
@@ -243,7 +350,7 @@ r.insertCell(4).innerText=d.Date||"-";
 
 }catch(e){
 
-console.log("Data fetch error",e);
+console.log(e);
 
 }
 
