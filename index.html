@@ -20,15 +20,15 @@ box-sizing:border-box;
 body{
 
 font-family:'Poppins',sans-serif;
-color:#2c3e50;
 
 background-image:url("background.jpeg");
 background-size:cover;
-background-position:center top;
+background-position:center;
 background-repeat:no-repeat;
 background-attachment:fixed;
 
 min-height:100vh;
+color:#222;
 
 }
 
@@ -36,9 +36,9 @@ min-height:100vh;
 
 header{
 text-align:center;
-padding:20px 10px;
+padding:20px;
 color:#fff;
-text-shadow:0 2px 5px rgba(0,0,0,0.7);
+text-shadow:0 2px 5px rgba(0,0,0,0.6);
 }
 
 header h1{
@@ -53,7 +53,7 @@ font-size:20px;
 /* CONTAINER */
 
 .container{
-max-width:850px;
+max-width:900px;
 margin:auto;
 padding:10px;
 }
@@ -67,42 +67,10 @@ backdrop-filter:blur(8px);
 -webkit-backdrop-filter:blur(8px);
 
 border-radius:15px;
-padding:12px;
-margin-bottom:12px;
+padding:15px;
+margin-bottom:15px;
 
 box-shadow:0 5px 20px rgba(0,0,0,0.2);
-
-}
-
-/* NAMAZ GRID SMALL */
-
-.prayer-grid{
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:6px;
-
-}
-
-.prayer-box{
-
-background:rgba(255,255,255,0.35);
-backdrop-filter:blur(6px);
-
-padding:6px;
-border-radius:8px;
-text-align:center;
-
-font-size:12px;
-font-weight:600;
-
-}
-
-.prayer-time{
-
-display:block;
-font-size:12px;
-margin-top:2px;
 
 }
 
@@ -111,7 +79,7 @@ margin-top:2px;
 .totals-container{
 
 display:flex;
-gap:8px;
+gap:10px;
 flex-wrap:wrap;
 
 }
@@ -119,11 +87,11 @@ flex-wrap:wrap;
 .total-box{
 
 flex:1;
-padding:10px;
+padding:12px;
 border-radius:10px;
 text-align:center;
 color:#fff;
-font-size:13px;
+font-size:14px;
 
 }
 
@@ -171,13 +139,13 @@ border-collapse:collapse;
 th,td{
 padding:8px;
 text-align:center;
-border-bottom:1px solid rgba(255,255,255,0.4);
+border-bottom:1px solid rgba(255,255,255,0.5);
 font-size:13px;
-color:#000;
+background:rgba(255,255,255,0.7);
 }
 
 th{
-background:rgba(255,255,255,0.5);
+background:rgba(255,255,255,0.9);
 }
 
 </style>
@@ -195,46 +163,6 @@ background:rgba(255,255,255,0.5);
 
 <div class="container">
 
-<!-- NAMAZ -->
-
-<div class="card">
-
-<div class="prayer-grid">
-
-<div class="prayer-box">
-Fajr
-<span class="prayer-time" id="fajrClock">--</span>
-</div>
-
-<div class="prayer-box">
-Zohar
-<span class="prayer-time" id="dhuhrClock">--</span>
-</div>
-
-<div class="prayer-box">
-Asar
-<span class="prayer-time" id="asrClock">--</span>
-</div>
-
-<div class="prayer-box">
-Maghrib
-<span class="prayer-time" id="maghribClock">--</span>
-</div>
-
-<div class="prayer-box">
-Isha
-<span class="prayer-time" id="ishaClock">--</span>
-</div>
-
-<div class="prayer-box">
-Juma
-<span class="prayer-time">01:30 PM</span>
-</div>
-
-</div>
-
-</div>
-
 <!-- SUMMARY -->
 
 <div class="card">
@@ -247,7 +175,7 @@ Total Donation
 </div>
 
 <div class="total-box total-used">
-Used
+Donation Used
 <div id="donationUsed">₹0</div>
 </div>
 
@@ -271,7 +199,7 @@ Donation List
 </button>
 
 <button onclick="showSection('kharcha')">
-Fund Used
+Fund Used List
 </button>
 
 </div>
@@ -290,8 +218,6 @@ Fund Used
 
 <script>
 
-/* SHOW TABLE */
-
 function showSection(id){
 
 document.getElementById('donation').style.display='none';
@@ -301,65 +227,92 @@ document.getElementById(id).style.display='block';
 
 }
 
-/* PRAYER TIME */
+/* DATE FORMAT INDIA */
 
-async function fetchPrayerTimes(){
+function formatIndianDate(dateString){
 
-try{
+if(!dateString) return "-";
 
-const res=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Mumbai&country=India&method=2");
+const d=new Date(dateString);
 
-const data=await res.json();
+const day=("0"+d.getDate()).slice(-2);
+const month=("0"+(d.getMonth()+1)).slice(-2);
+const year=d.getFullYear();
 
-const t=data.data.timings;
-
-document.getElementById("fajrClock").innerText=t.Fajr;
-document.getElementById("dhuhrClock").innerText=t.Dhuhr;
-document.getElementById("asrClock").innerText=t.Asr;
-document.getElementById("maghribClock").innerText=t.Maghrib;
-document.getElementById("ishaClock").innerText=t.Isha;
-
-}catch(e){
-console.log(e);
-}
+return day+"-"+month+"-"+year;
 
 }
 
-fetchPrayerTimes();
-
-/* GOOGLE SHEET DATA */
+/* GOOGLE SHEET */
 
 const API_URL="https://script.google.com/macros/s/AKfycbx4lP00Q3kbRpq3ajbBxPDpgSp7QHecEKcoPNtH4mhqalnsDbAQlGB2pLSKtXIOya1i/exec";
+
+let donationList=[];
+let kharchaList=[];
 
 async function fetchData(){
 
 try{
 
 const res=await fetch(API_URL);
-
 const data=await res.json();
 
-const donations=data.donations||[];
+donationList=data.donations||[];
+kharchaList=data.kharcha||[];
 
-const table=document.getElementById("donationTable");
+renderTables();
+calculateTotals();
 
-table.innerHTML="<tr><th>#</th><th>Name</th><th>Amount</th><th>Method</th><th>Date</th></tr>";
+}catch(e){
 
-donations.forEach((d,i)=>{
+console.log("Fetch error",e);
 
-let r=table.insertRow();
+}
+
+}
+
+function renderTables(){
+
+const dTable=document.getElementById("donationTable");
+const kTable=document.getElementById("kharchaTable");
+
+dTable.innerHTML="<tr><th>#</th><th>Name</th><th>Amount</th><th>Method</th><th>Date</th></tr>";
+
+kTable.innerHTML="<tr><th>#</th><th>Purpose</th><th>Amount</th><th>Date</th></tr>";
+
+donationList.forEach((d,i)=>{
+
+let r=dTable.insertRow();
 
 r.insertCell(0).innerText=i+1;
 r.insertCell(1).innerText=d.Name||"Anonymous";
-r.insertCell(2).innerText=d.Amount||0;
+r.insertCell(2).innerText="₹ "+(d.Amount||0);
 r.insertCell(3).innerText=d.Method||"-";
-r.insertCell(4).innerText=d.Date||"-";
+r.insertCell(4).innerText=formatIndianDate(d.Date);
 
 });
 
-}catch(e){
-console.log(e);
+kharchaList.forEach((k,i)=>{
+
+let r=kTable.insertRow();
+
+r.insertCell(0).innerText=i+1;
+r.insertCell(1).innerText=k.Purpose||"-";
+r.insertCell(2).innerText="₹ "+(k.Amount||0);
+r.insertCell(3).innerText=formatIndianDate(k.Date);
+
+});
+
 }
+
+function calculateTotals(){
+
+let totalDonation=donationList.reduce((s,d)=>s+parseInt(d.Amount||0),0);
+let totalUsed=kharchaList.reduce((s,k)=>s+parseInt(k.Amount||0),0);
+
+document.getElementById("donationCounter").innerText="₹ "+totalDonation;
+document.getElementById("donationUsed").innerText="₹ "+totalUsed;
+document.getElementById("balance").innerText="₹ "+(totalDonation-totalUsed);
 
 }
 
